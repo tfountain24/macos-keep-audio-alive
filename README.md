@@ -6,7 +6,7 @@ Many USB and wireless audio devices (headsets, DACs, speakers) will enter a low-
 
 ## How It Works
 
-Uses [SoX](https://sox.sourceforge.net/) to generate a continuous silent sine wave (0 Hz at 0 volume) directed at a specific CoreAudio output device. A LaunchAgent ensures this runs automatically on login and restarts if interrupted.
+Uses [SoX](https://sox.sourceforge.net/) to generate a continuous sub-audible sine wave (15 Hz at 1% volume) directed at a specific CoreAudio output device. The 15 Hz frequency is below human hearing range but provides enough signal to prevent the DAC from entering sleep mode. A LaunchAgent ensures this runs automatically on login and restarts if interrupted.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ brew install sox
 List available CoreAudio output devices:
 
 ```bash
-sox -n -t coreaudio "?" synth sine 0 vol 0 2>&1
+sox -n -t coreaudio "?" synth sine 15 vol 0.01 2>&1
 ```
 
 This will print an error along with a list of available device names. Copy the exact name of the device you want to keep alive.
@@ -74,7 +74,7 @@ rm ~/Library/LaunchAgents/com.keepaudioalive.plist
 
 ## Troubleshooting
 
-- **Device not found**: Make sure the device name exactly matches what `sox -n -t coreaudio "?" synth sine 0 vol 0 2>&1` reports.
+- **Device not found**: Make sure the device name exactly matches what `sox -n -t coreaudio "?" synth sine 15 vol 0.01 2>&1` reports.
 - **SoX not found**: Ensure SoX is installed at `/opt/homebrew/bin/sox` (Apple Silicon) or `/usr/local/bin/sox` (Intel). Update the plist path if different — the install script handles this automatically.
 - **Agent not starting**: Check logs with `launchctl list | grep keepaudioalive`. A `-` in the PID column means it's not running; check the exit code for clues.
 

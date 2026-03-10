@@ -11,7 +11,7 @@ if [ -z "$DEVICE_NAME" ]; then
     echo "Usage: ./install.sh \"Your Audio Device Name\""
     echo ""
     echo "To list available devices, run:"
-    echo "  sox -n -t coreaudio \"?\" synth sine 0 vol 0 2>&1"
+    echo "  sox -n -t coreaudio \"?\" synth sine 15 vol 0.01 2>&1"
     exit 1
 fi
 

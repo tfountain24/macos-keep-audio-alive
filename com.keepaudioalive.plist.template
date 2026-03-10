@@ -13,9 +13,9 @@
 		<string>{{DEVICE_NAME}}</string>
 		<string>synth</string>
 		<string>sine</string>
-		<string>0</string>
+		<string>15</string>
 		<string>vol</string>
-		<string>0</string>
+		<string>0.01</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
